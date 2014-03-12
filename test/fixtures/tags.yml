@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  latitude: 1.5
+  longitude: 1.5
+  track_id: 1
+  account_id: MyString
+  system: MyString
+  system_version: MyString
+  device: MyString
+  platform: MyString
+  country: MyString
+
+two:
+  latitude: 1.5
+  longitude: 1.5
+  track_id: 1
+  account_id: MyString
+  system: MyString
+  system_version: MyString
+  device: MyString
+  platform: MyString
+  country: MyString
