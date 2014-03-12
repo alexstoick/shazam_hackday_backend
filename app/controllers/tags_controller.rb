@@ -38,13 +38,16 @@ class TagsController < ApplicationController
     latitude = tag.latitude
     longitude = tag.longitude
     artist_id = parsed_response["artists"][0]["id"]
+    picture = parsed_response["images"]["image400"] ;
 
-    render json: { 
+    render json: {
       title: title ,
       artist: artist ,
       longitude: longitude,
       latitude: latitude,
-      artist_id: artist_id
+      artist_id: artist_id ,
+      created_at: tag.created_at ,
+      image: picture
     }
     #render json: tag
 
