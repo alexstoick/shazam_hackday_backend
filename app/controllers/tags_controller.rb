@@ -28,7 +28,18 @@ class TagsController < ApplicationController
   end
 
   def show_first_5000
-    render json: Tag.where("id < 5500")
+    render json: Tag.where("id > ?" , (params[:id].to_i * 5000) ).limit(5000)
+  end
+
+  def show_first_100
+    popularity = Hash.new(0)
+    Tag.all.find_in_batches( batch_size: 500 ) do |tags|
+      tags.each do |tag|
+        popularity[tag.track_id] += 1
+      end
+    end
+    popularity = popularity.sort_by { |track, appearances| appearances }.reverse!
+    render json: { "popularity_array" => popularity , "hash" => Hash[popularity] }
   end
 
   def show

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140312125331) do
+ActiveRecord::Schema.define(version: 20140312174700) do
 
   create_table "tags", force: true do |t|
     t.float    "latitude"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20140312125331) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tags", ["track_id"], name: "index_tags_on_track_id"
 
   create_table "tracks", force: true do |t|
     t.string   "artist"
