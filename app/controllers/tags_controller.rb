@@ -1,4 +1,7 @@
 class TagsController < ApplicationController
+
+  require 'open-uri'
+
   def create
 
     puts post_params
@@ -21,6 +24,30 @@ class TagsController < ApplicationController
   end
 
   def show
+
+    tag = Tag.find(params[:id])
+
+    base_product = "http://ocdn.shazamid.com/orbit/getsmoid/en/US/Play_Web/1/-/US/Web/-/-/50/product/" ;
+    base_track = "http://ocdn.shazamid.com/orbit/getsmoid/en/US/Play_Web/1/-/US/Web/-/-/50/track/" ;
+    base_artist = "http://ocdn.shazamid.com/orbit/getsmoid/en/US/Play_Web/1/-/US/Web/-/-/50/artist/" ;
+
+    response = open(base_track + tag.track_id.to_s ).read
+    parsed_response = JSON.parse(response)
+    title =  parsed_response["title"]
+    artist = parsed_response["description"]
+    latitude = tag.latitude
+    longitude = tag.longitude
+    artist_id = parsed_response["artists"][0]["id"]
+
+    render json: { 
+      title: title ,
+      artist: artist ,
+      longitude: longitude,
+      latitude: latitude,
+      artist_id: artist_id
+    }
+    #render json: tag
+
   end
 
   private
