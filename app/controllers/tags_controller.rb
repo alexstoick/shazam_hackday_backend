@@ -23,13 +23,19 @@ class TagsController < ApplicationController
 
   end
 
+  def get_track_id
+    render json: { track_id: Tag.find(params[:id]).track_id }
+  end
+
+  def show_first_5000
+    render json: Tag.where("id < 5500")
+  end
+
   def show
 
     tag = Tag.find(params[:id])
 
-    base_product = "http://ocdn.shazamid.com/orbit/getsmoid/en/US/Play_Web/1/-/US/Web/-/-/50/product/" ;
     base_track = "http://ocdn.shazamid.com/orbit/getsmoid/en/US/Play_Web/1/-/US/Web/-/-/50/track/" ;
-    base_artist = "http://ocdn.shazamid.com/orbit/getsmoid/en/US/Play_Web/1/-/US/Web/-/-/50/artist/" ;
 
     response = open(base_track + tag.track_id.to_s ).read
     parsed_response = JSON.parse(response)
@@ -38,7 +44,7 @@ class TagsController < ApplicationController
     latitude = tag.latitude
     longitude = tag.longitude
     artist_id = parsed_response["artists"][0]["id"]
-    picture = parsed_response["images"]["image400"] ;
+    picture = parsed_response["images"]["image400"]
 
     render json: {
       title: title ,
@@ -47,9 +53,9 @@ class TagsController < ApplicationController
       latitude: latitude,
       artist_id: artist_id ,
       created_at: tag.created_at ,
+      track_id: tag.track_id,
       image: picture
     }
-    #render json: tag
 
   end
 

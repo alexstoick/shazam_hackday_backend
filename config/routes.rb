@@ -1,8 +1,11 @@
 ShazamHackday::Application.routes.draw do
 
+  match "/track_id/:id", to: "tags#get_track_id", via: :get
+  match "/first_5000/", to: "tags#show_first_5000", via: :get
   resources :tags, only: [:create,:show]
   resources :artists, only: [:show]
   resources :products, only: [:show]
+  resources :tracks, only: [:show]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
